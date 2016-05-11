@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'idea'
 
 repositories {
@@ -8,9 +9,8 @@ repositories {
 dependencies {
     compile 'com.google.guava:guava:19.0'
     compile 'commons-collections:commons-collections:3.2.2'
+    compile 'org.codehaus.groovy:groovy-all:2.4.4'
+
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
-    testCompile group: 'junit', name: 'junit-dep', version: '4.10'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.+'
+    testCompile 'junit:junit:4.12'
 }
