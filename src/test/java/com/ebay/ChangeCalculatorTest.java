@@ -1,18 +1,23 @@
 package com.ebay;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 
 import org.junit.Test;
-import static java.util.Arrays.asList;
 
 public class ChangeCalculatorTest {
 	private ChangeCalculator calculator;
+	private CoinChanger coinChangerMock;
 
 	public ChangeCalculatorTest() {
-		calculator = new ChangeCalculator();
+		coinChangerMock = mock(CoinChanger.class);
+		calculator = new ChangeCalculator(coinChangerMock);
 	}
 
 	@Test
@@ -38,15 +43,17 @@ public class ChangeCalculatorTest {
 
 	@Test
 	public void returnsCorrectChangeWhenEnoughCoinsInserted() {
-		calculator.insert(Coins.QUARTER);     // 25
-		calculator.insert(Coins.HALF_DOLLAR); // 75
-		calculator.insert(Coins.DIME);        // 85
-		assertEquals(asList(Coins.NICKEL, Coins.CENT), calculator.getChange(79));
+		when(coinChangerMock.getChange(1)).thenReturn(asList(Coins.CENT));
+		calculator.insert(Coins.NICKEL);
+		assertEquals(asList(Coins.CENT), calculator.getChange(4));
+		verify(coinChangerMock).getChange(1);
 	}
 
 	@Test
 	public void returnsCorrectChangeWhenSomeCoinsInsertedAndChangeForZero() {
+		when(coinChangerMock.getChange(5)).thenReturn(asList(Coins.NICKEL));
 		calculator.insert(Coins.NICKEL);
 		assertEquals(asList(Coins.NICKEL), calculator.getChange(0));
+		verify(coinChangerMock).getChange(5);
 	}
 }

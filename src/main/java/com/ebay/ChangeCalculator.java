@@ -6,8 +6,10 @@ import java.util.List;
 public class ChangeCalculator {
 
 	private int insertedAmount;
+	private CoinChanger coinChanger;
 
-	public ChangeCalculator() {
+	public ChangeCalculator(CoinChanger coinChanger) {
+		this.coinChanger = coinChanger;
 		this.insertedAmount = 0;
 	}
 
@@ -18,7 +20,7 @@ public class ChangeCalculator {
 			return new LinkedList<Integer>();
 		} else {
 			int changeAmount = insertedAmount - amount;
-			return new InfiniteCoinChanger().getChange(changeAmount);
+			return coinChanger.getChange(changeAmount);
 		}
 	}
 
