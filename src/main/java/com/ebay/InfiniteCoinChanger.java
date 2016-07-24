@@ -6,7 +6,7 @@ import static com.ebay.Coins.*;
 import static com.google.common.collect.Lists.newLinkedList;
 import static java.util.Arrays.asList;
 
-public class Java7CoinChanger implements CoinChanger {
+public class InfiniteCoinChanger implements CoinChanger {
 
     private List<Integer> coins = asList(HALF_DOLLAR, QUARTER, DIME, NICKEL, CENT);
 
